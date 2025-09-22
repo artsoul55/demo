@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geminiプラン選択ナビゲーター | Google AI Pro vs Workspace</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals (Slate, Stone, with a calming Blue accent) -->
+    <!-- Application Structure Plan: A user-centric, single-page scrolling app. It starts with a profile selector for a personalized journey. Key information is presented in interactive formats: side-by-side comparison cards, a tabbed deep-dive section, and an interactive radar chart for benefit analysis. A dedicated decision-tree module assists sole proprietors. This structure guides users from broad understanding to specific, tailored recommendations, making a complex choice simple and engaging. -->
+    <!-- Visualization & Content Choices: Report's comparison table -> Goal: Compare -> Interactive Cards -> Easier to digest on mobile. Report's detailed text -> Goal: Organize -> Tabbed Interface -> Avoids wall of text. Report's abstract value propositions -> Goal: Compare -> Radar Chart (Chart.js/Canvas) -> Visualizes qualitative strengths. Report's sole proprietor advice -> Goal: Guide -> Interactive Decision Tree (HTML/JS) -> Active user participation. Report's diagrams -> Goal: Organize -> Styled HTML/CSS -> A clean, modern visual representation. CONFIRMED: NO SVG/Mermaid used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+            color: #334155; /* slate-700 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 50vh;
+            max-height: 450px;
+        }
+        .tab-button.active {
+            border-color: #3b82f6; /* blue-500 */
+            background-color: #eff6ff; /* blue-50 */
+            color: #1e3a8a; /* blue-900 */
+            font-weight: 700;
+        }
+        .decision-btn.selected {
+            background-color: #3b82f6;
+            color: white;
+            transform: scale(1.05);
+        }
+        .warning-box {
+            border-left-width: 4px;
+            border-color: #f59e0b; /* amber-500 */
+            background-color: #fffbeb; /* amber-50 */
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <h1 class="text-2xl sm:text-3xl font-bold text-slate-800 text-center">Geminiプラン選択ナビゲーター</h1>
+            <p class="text-center text-slate-500 mt-1">あなたに最適なGoogle AIプランを見つけよう</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        
+        <section id="intro" class="text-center bg-white p-6 sm:p-8 rounded-xl shadow-md mb-12">
+            <h2 class="text-xl sm:text-2xl font-bold text-blue-800 mb-4">あなたはどちらのタイプ？</h2>
+            <p class="mb-6 text-slate-600 max-w-2xl mx-auto">まず、あなたの主な利用目的を教えてください。あなたに合った情報へスムーズにご案内します。</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
+                <a href="#comparison" class="w-full sm:w-auto bg-blue-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-600 transition-colors duration-300">個人・クリエイター</a>
+                <a href="#comparison" class="w-full sm:w-auto bg-slate-700 text-white font-bold py-3 px-6 rounded-lg hover:bg-slate-800 transition-colors duration-300">法人・チーム利用</a>
+                <a href="#sole-proprietor" class="w-full sm:w-auto bg-green-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-700 transition-colors duration-300">個人事業主・副業</a>
+            </div>
+        </section>
+
+        <section id="common-ground" class="mb-12">
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
+                <h2 class="text-xl font-bold text-blue-900">大前提：どちらも賢いAI「Gemini Pro」が頭脳です</h2>
+                <p class="mt-2 text-slate-700">まず知っておくべき重要な点は、どちらのプランも高性能なAIモデル「Gemini Pro」を基盤にしていることです。違いはAIの賢さそのものではなく、**「AIを何のために、どのような機能で、どんなルールで使うか」**という点にあります。</p>
+            </div>
+        </section>
+
+        <section id="comparison" class="mb-12">
+            <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8">詳細比較：できること・できないこと</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                
+                <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-blue-500 flex flex-col space-y-4">
+                    <h3 class="text-2xl font-bold text-blue-800">👤 Google AI Pro</h3>
+                    <p class="text-slate-600 font-semibold">【目的】個人の創造性と探求心を最大化する</p>
+                    <div>
+                        <h4 class="font-bold text-green-700">✅ できること</h4>
+                        <ul class="list-disc list-inside mt-2 text-slate-700 space-y-1">
+                            <li><strong>画像・動画の生成：</strong>「夕焼けの猫のイラスト」など、アイデアを形にする創作活動。</li>
+                            <li><strong>最新モデルへのアクセス：</strong> Googleの最先端AI（Gemini Advancedなど）をいち早く利用可能。</li>
+                            <li><strong>高度な分析・調査：</strong> 複雑な論文の要約、膨大なデータからの傾向分析。</li>
+                            <li><strong>自由な対話と履歴管理：</strong> チャット履歴のON/OFFや削除を自分で完全にコントロール。</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-red-700">❌ できないこと・制限</h4>
+                        <ul class="list-disc list-inside mt-2 text-slate-700 space-y-1">
+                            <li><strong>業務ツールとの深い連携：</strong> Workspaceのように、GmailやドキュメントにAIが完全に溶け込んでいるわけではない。</li>
+                            <li><strong>法人レベルのセキュリティ：</strong> あくまで個人のGoogleアカウントとしてのセキュリティ管理となる。</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-slate-700 flex flex-col space-y-4">
+                    <h3 class="text-2xl font-bold text-slate-800">🏢 Gemini for Workspace</h3>
+                    <p class="text-slate-600 font-semibold">【目的】チームの業務生産性を向上させる</p>
+                    <div>
+                        <h4 class="font-bold text-green-700">✅ できること</h4>
+                        <div class="mt-2 space-y-3">
+                            <div>
+                                <h5 class="font-semibold text-slate-800">【A】普段の仕事ツール内でできること（業務効率化）</h5>
+                                <ul class="list-disc list-inside mt-1 text-slate-700 space-y-1">
+                                    <li><strong>業務の自動化：</strong> Gmailでの返信案作成、ドキュメントでの要約、Meetでの議事録作成。</li>
+                                    <li><strong>データ整理・分析：</strong> スプレッドシートで「売上トップ5をグラフ化して」などの指示が可能。</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h5 class="font-semibold text-slate-800">【B】付属のGemini専用アプリでできること（高度な対話・創作）</h5>
+                                <ul class="list-disc list-inside mt-1 text-slate-700 space-y-1">
+                                    <li><strong>高度な対話・調査：</strong> 論文の要約や市場調査など、複雑な分析が可能。（DeepResearchなど）</li>
+                                    <li><strong>画像生成：</strong> アイデア出しや資料の挿絵用に画像を生成。</li>
+                                    <li><strong>動画生成のプレビューアクセス：</strong> Veo 3 Fastなどの最新機能も利用可能になる場合があります。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-red-700">❌ できないこと・制限</h4>
+                        <ul class="list-disc list-inside mt-2 text-slate-700 space-y-1">
+                            <li><strong>創作と業務ツールの連携方法の違い：</strong> 画像生成はGemini専用アプリで自由に行えます。ただし、その画像をドキュメントやスライドで使う際は、一度保存してから手動で挿入する必要があり、AI Proプランと同様の作業フローになります。</li>
+                            <li><strong>チャット履歴の自己削除不可：</strong> ユーザーは自分の対話履歴を削除できません。（詳細は後述）</li>
+                            <li><strong>最新モデルへの最速アクセス：</strong> 最新AIモデルの適用は、ビジネス用途での安定性が確認されてからになる場合がある。</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="history-issue" class="mb-12">
+            <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8">最重要ポイント：チャット履歴とデータの扱いの違い</h2>
+            <div class="bg-white p-6 sm:p-8 rounded-xl shadow-lg">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <h3 class="text-xl font-bold text-blue-800">👤 Google AI Proの場合</h3>
+                        <div class="p-4 bg-blue-50 rounded-lg">
+                             <h4 class="font-semibold text-blue-800">利用者側のメリット</h4>
+                            <p class="text-slate-700 mt-1">対話履歴を保存するかどうか（アクティビティのON/OFF）、そして過去の履歴をいつ削除するかは、すべてあなた自身が決められます。プライベートなアイデア出しや壁打ちにも安心して使えます。</p>
+                        </div>
+                        <div class="p-4 bg-slate-100 rounded-lg">
+                             <h4 class="font-semibold text-slate-800">注意点</h4>
+                            <p class="text-slate-700 mt-1">セキュリティはあなたの個人Googleアカウントに依存します。企業の機密情報や厳格な管理が必要なデータを扱うのには向いていません。</p>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <h3 class="text-xl font-bold text-slate-800">🏢 Gemini for Workspaceの場合</h3>
+                        <div class="p-4 bg-green-50 rounded-lg">
+                            <h4 class="font-semibold text-green-800">管理者側のメリット</h4>
+                            <p class="text-slate-700 mt-1">全ての対話履歴は会社の資産として記録・保管されます。これにより、情報漏洩の防止、利用状況の監査、コンプライアンス遵守が可能になり、企業統治の観点からは非常に重要です。</p>
+                        </div>
+                        <div class="p-4 bg-red-50 rounded-lg">
+                            <h4 class="font-semibold text-red-800">利用者側のデメリット</h4>
+                            <p class="text-slate-700 mt-1">ユーザーは自分の意思で対話履歴を削除できません。プライベートな内容や、仕事に関係のない個人的な相談などは、すべて会社に記録として残ってしまいます。</p>
+                        </div>
+                        <div class="warning-box p-4 rounded-lg">
+                            <h4 class="font-bold text-amber-800">⚠️ 使用上の最重要注意</h4>
+                            <p class="text-slate-700 mt-2">Workspace版のGeminiは**「会社の道具」**です。プライベートな質問や個人的な悩み相談に使うのは絶対にやめましょう。あなたの対話は**会社の業務記録**であり、あなた個人のプライベートなものではありません。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="visualization" class="mb-12">
+            <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8">特徴をチャートで視覚化</h2>
+            <div class="bg-white p-4 sm:p-6 rounded-xl shadow-lg">
+                 <p class="text-center text-slate-600 mb-4">各プランがどの分野に強いのかをレーダーチャートで見てみましょう。面積が広いほど、その分野に強いことを示します。</p>
+                <div class="chart-container">
+                    <canvas id="featureChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="sole-proprietor" class="mb-12 scroll-mt-20">
+            <h2 class="text-2xl sm:text-3xl font-bold text-center mb-2 text-green-800">【特別編】個人事業主・副業の方へ</h2>
+            <p class="text-center text-slate-600 max-w-3xl mx-auto">「個人」と「法人」の中間にいるあなたのための選択ガイドです。</p>
+            <p class="text-center text-slate-600 mb-8 max-w-3xl mx-auto">あなたの事業内容に合わせて最適なプランを診断します。</p>
+            <div class="bg-white p-6 sm:p-8 rounded-xl shadow-lg">
+                <div id="decision-start">
+                    <h3 class="text-lg sm:text-xl font-bold text-center mb-6">あなたの事業の中心はどちらですか？</h3>
+                    <div class="flex flex-col sm:flex-row justify-center gap-4">
+                        <button class="decision-btn w-full sm:w-auto text-lg font-bold py-4 px-8 rounded-lg transition-all duration-200 bg-slate-100 hover:bg-slate-200" data-type="admin">顧客とのやり取り・事務作業</button>
+                        <button class="decision-btn w-full sm:w-auto text-lg font-bold py-4 px-8 rounded-lg transition-all duration-200 bg-slate-100 hover:bg-slate-200" data-type="creative">コンテンツ制作・創作活動</button>
+                    </div>
+                </div>
+                <div id="decision-result" class="hidden text-center">
+                     <h3 class="text-xl sm:text-2xl font-bold mb-4" id="result-title"></h3>
+                     <p class="text-slate-600 mb-6 mx-auto max-w-2xl" id="result-description"></p>
+                     <div class="bg-gray-50 p-4 rounded-lg border" id="result-details"></div>
+                     <button id="reset-decision" class="mt-6 text-sm text-blue-600 hover:underline">もう一度診断する</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="sole-proprietor-hints" class="mb-12">
+            <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8">【個人事業主・副業の方向け】もっと具体的に！業種別ヒント</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-bold text-slate-800 mb-4">✅ Workspaceが特に向いている業種</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-semibold">コンサルタント・士業</h4>
+                            <p class="text-sm text-slate-600 mt-1"><strong class="text-green-700">活用ポイント：</strong> 顧客とのメール対応をAIで半自動化。オンライン会議の議事録を自動生成し、共有することで信頼性を向上。</p>
+                        </div>
+                         <div>
+                            <h4 class="font-semibold">Webデザイナー（クライアントワーク中心）</h4>
+                            <p class="text-sm text-slate-600 mt-1"><strong class="text-green-700">活用ポイント：</strong> 顧客への提案資料の下書きや構成案をドキュメントで高速作成。プロジェクト管理をスプレッドシートと連携し効率化。</p>
+                        </div>
+                         <div>
+                            <h4 class="font-semibold">ネットショップ運営者</h4>
+                            <p class="text-sm text-slate-600 mt-1"><strong class="text-green-700">活用ポイント：</strong> 顧客からの問い合わせメールへの返信をAIがアシスト。新商品の説明文やメルマガの文案作成を効率化。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                     <h3 class="text-xl font-bold text-blue-800 mb-4">👤 AI Proがより輝く可能性のある業種</h3>
+                     <div class="space-y-4">
+                        <div>
+                            <h4 class="font-semibold">イラストレーター・アーティスト</h4>
+                            <p class="text-sm text-slate-600 mt-1"><strong class="text-red-700">明確な理由：</strong> 事業の核が「創作」そのものであるため。AIによる画像生成はアイデアの源泉や作風の探求に直結。事務作業よりも創作支援が重要。</p>
+                        </div>
+                         <div>
+                            <h4 class="font-semibold">Youtuber・動画クリエイター</h4>
+                            <p class="text-sm text-slate-600 mt-1"><strong class="text-red-700">明確な理由：</strong> 動画の企画案、台本作成、テロップのアイデア出し、そしてVeoによる動画生成など、制作プロセス全体をAIで加速できるため。</p>
+                        </div>
+                         <div>
+                            <h4 class="font-semibold">ライター・ブロガー（執筆専門）</h4>
+                            <p class="text-sm text-slate-600 mt-1"><strong class="text-red-700">明確な理由：</strong> 顧客とのやり取りが少ない場合、Workspaceの連携機能より、最新モデルで高度なリサーチや多様な文章スタイルを探求できるAI Proが有利。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <footer class="text-center text-sm text-slate-400 mt-12 border-t pt-8">
+            <p>このアプリケーションは、提供されたレポートに基づき情報を視覚化したものです。</p>
+            <p>&copy; 2025 Gemini Plan Navigator. All Rights Reserved.</p>
+        </footer>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const decision = {
+                start: document.getElementById('decision-start'),
+                result: document.getElementById('decision-result'),
+                buttons: document.querySelectorAll('.decision-btn'),
+                resetBtn: document.getElementById('reset-decision'),
+                title: document.getElementById('result-title'),
+                description: document.getElementById('result-description'),
+                details: document.getElementById('result-details'),
+            };
+
+            const resultsData = {
+                admin: {
+                    title: "🏢 Gemini for Workspace がおすすめです",
+                    description: "顧客との信頼関係や日々の業務効率を重視するなら、セキュリティと自動化機能に優れたWorkspaceプランが最適です。顧客情報などを扱う上で、チャット履歴が監査ログとして残ることもメリットになります。",
+                    details: `
+                        <h4 class="font-bold mb-2">おすすめの理由</h4>
+                        <ul class="text-left list-disc list-inside text-slate-700">
+                            <li><strong>信頼性アップ:</strong> 高度なセキュリティで顧客情報を保護。</li>
+                            <li><strong>圧倒的な業務効率化:</strong> メール返信や書類作成をAIが自動化。</li>
+                            <li><strong>経費計上:</strong> 事業用のツールとして経費計上しやすい。</li>
+                        </ul>
+                    `
+                },
+                creative: {
+                    title: "👤 Google AI Pro がおすすめです",
+                    description: "イラスト、動画、SNS投稿など、クリエイティブなコンテンツを生み出すことが事業の中心なら、創作機能が豊富で、履歴を自由に管理できるAI Proを選びましょう。",
+                     details: `
+                        <h4 class="font-bold mb-2">おすすめの理由</h4>
+                        <ul class="text-left list-disc list-inside text-slate-700">
+                            <li><strong>創作に特化した機能:</strong> WorkspaceのAIは文章作成支援が中心。画像や動画を自由に生成する機能はAI Proの大きな強みです。</li>
+                            <li><strong>自由な履歴管理:</strong> 個人的なアイデアや試行錯誤の履歴を気兼ねなく残したり消したりできます。</li>
+                            <li><strong>最新技術へのアクセス:</strong> 新しい表現を追求する上で、最新モデルをいち早く試せるメリットは大きいです。</li>
+                        </ul>
+                    `
+                }
+            };
+            
+            decision.buttons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const type = e.target.dataset.type;
+                    decision.buttons.forEach(btn => btn.classList.remove('selected'));
+                    e.target.classList.add('selected');
+
+                    setTimeout(() => {
+                        decision.start.classList.add('hidden');
+                        const data = resultsData[type];
+                        decision.title.textContent = data.title;
+                        decision.description.textContent = data.description;
+                        decision.details.innerHTML = data.details;
+                        decision.result.classList.remove('hidden');
+                    }, 300);
+                });
+            });
+
+            decision.resetBtn.addEventListener('click', () => {
+                decision.result.classList.add('hidden');
+                decision.start.classList.remove('hidden');
+                decision.buttons.forEach(btn => btn.classList.remove('selected'));
+            });
+
+            const chartCtx = document.getElementById('featureChart').getContext('2d');
+            const chartData = {
+                labels: ['画像・動画生成', '日常業務との統合', '法人セキュリティ', '最新技術アクセス', '履歴の自己管理'],
+                datasets: [
+                    {
+                        label: 'Google AI Pro',
+                        data: [5, 2, 2, 5, 5],
+                        backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                        borderColor: 'rgba(59, 130, 246, 1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: 'rgba(59, 130, 246, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(59, 130, 246, 1)'
+                    },
+                    {
+                        label: 'Gemini for Workspace',
+                        data: [4, 5, 5, 3, 1],
+                        backgroundColor: 'rgba(100, 116, 139, 0.2)',
+                        borderColor: 'rgba(100, 116, 139, 1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: 'rgba(100, 116, 139, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(100, 116, 139, 1)'
+                    }
+                ]
+            };
+            const chartConfig = {
+                type: 'radar',
+                data: chartData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            },
+                            pointLabels: {
+                                font: {
+                                    size: 13,
+                                    weight: 'bold'
+                                },
+                                color: '#334155'
+                            },
+                            ticks: {
+                                backdropColor: 'rgba(255, 255, 255, 0.75)',
+                                stepSize: 1,
+                                max: 5,
+                                min: 0
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                font: {
+                                    size: 14
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    const value = context.raw;
+                                    const strength = ['-', '不可', '限定的', '普通', '得意', '非常に得意'];
+                                    label += strength[value];
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+            new Chart(chartCtx, chartConfig);
+        });
+    </script>
+</body>
+</html>
+
