@@ -59,10 +59,11 @@
         
         <section id="intro" class="text-center bg-white p-6 sm:p-8 rounded-xl shadow-md mb-12">
             <h2 class="text-xl sm:text-2xl font-bold text-blue-800 mb-4">あなたはどちらのタイプ？</h2>
-            <p class="mb-6 text-slate-600 max-w-2xl mx-auto">まず、あなたの主な利用目的を教えてください。あなたに合った情報へスムーズにご案内します。</p>
+            <p class="text-slate-600 max-w-2xl mx-auto">まず、あなたの主な利用目的を教えてください。</p>
+            <p class="mb-6 text-slate-600 max-w-2xl mx-auto">あなたに合った情報へスムーズにご案内します。</p>
             <div class="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
-                <a href="#comparison" class="w-full sm:w-auto bg-blue-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-600 transition-colors duration-300">個人・クリエイター</a>
-                <a href="#comparison" class="w-full sm:w-auto bg-slate-700 text-white font-bold py-3 px-6 rounded-lg hover:bg-slate-800 transition-colors duration-300">法人・チーム利用</a>
+                <a href="#google-ai-pro-card" class="w-full sm:w-auto bg-blue-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-600 transition-colors duration-300">個人・クリエイター</a>
+                <a href="#google-workspace-card" class="w-full sm:w-auto bg-slate-700 text-white font-bold py-3 px-6 rounded-lg hover:bg-slate-800 transition-colors duration-300">法人・チーム利用</a>
                 <a href="#sole-proprietor" class="w-full sm:w-auto bg-green-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-700 transition-colors duration-300">個人事業主・副業</a>
             </div>
         </section>
@@ -76,9 +77,9 @@
 
         <section id="comparison" class="mb-12">
             <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8">詳細比較：できること・できないこと</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+            <div class="flex flex-col gap-8">
                 
-                <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-blue-500 flex flex-col space-y-4">
+                <div id="google-ai-pro-card" class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-blue-500 flex flex-col space-y-4 scroll-mt-20">
                     <h3 class="text-2xl font-bold text-blue-800">👤 Google AI Pro</h3>
                     <p class="text-slate-600 font-semibold">【目的】個人の創造性と探求心を最大化する</p>
                     <div>
@@ -99,8 +100,8 @@
                     </div>
                 </div>
 
-                <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-slate-700 flex flex-col space-y-4">
-                    <h3 class="text-2xl font-bold text-slate-800">🏢 Gemini for Workspace</h3>
+                <div id="google-workspace-card" class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-slate-700 flex flex-col space-y-4 scroll-mt-20">
+                    <h3 class="text-2xl font-bold text-slate-800">🏢 Google Workspace</h3>
                     <p class="text-slate-600 font-semibold">【目的】チームの業務生産性を向上させる</p>
                     <div>
                         <h4 class="font-bold text-green-700">✅ できること</h4>
@@ -108,6 +109,7 @@
                             <div>
                                 <h5 class="font-semibold text-slate-800">【A】普段の仕事ツール内でできること（業務効率化）</h5>
                                 <ul class="list-disc list-inside mt-1 text-slate-700 space-y-1">
+                                    <li><strong>安全なビジネスメール：</strong> 独自ドメイン（例：@会社名.com）で、安全なビジネス用メールアドレスを運用。</li>
                                     <li><strong>業務の自動化：</strong> Gmailでの返信案作成、ドキュメントでの要約、Meetでの議事録作成。</li>
                                     <li><strong>データ整理・分析：</strong> スプレッドシートで「売上トップ5をグラフ化して」などの指示が可能。</li>
                                 </ul>
@@ -151,10 +153,14 @@
                         </div>
                     </div>
                     <div class="space-y-4">
-                        <h3 class="text-xl font-bold text-slate-800">🏢 Gemini for Workspaceの場合</h3>
+                        <h3 class="text-xl font-bold text-slate-800">🏢 Google Workspaceの場合</h3>
                         <div class="p-4 bg-green-50 rounded-lg">
                             <h4 class="font-semibold text-green-800">管理者側のメリット</h4>
-                            <p class="text-slate-700 mt-1">全ての対話履歴は会社の資産として記録・保管されます。これにより、情報漏洩の防止、利用状況の監査、コンプライアンス遵守が可能になり、企業統治の観点からは非常に重要です。</p>
+                            <p class="text-slate-700 mt-1">独自ドメインで安全なビジネスメール（例：@会社名.com）を運用できます。また、全ての対話履歴は会社の資産として記録・保管され、情報漏洩の防止や利用状況の監査が可能になります。</p>
+                        </div>
+                         <div class="p-4 bg-orange-50 rounded-lg">
+                            <h4 class="font-semibold text-orange-800">管理者側のデメリット</h4>
+                            <p class="text-slate-700 mt-1">独自ドメインのメール管理は全てWorkspaceで行います。複数人で異なるメールアドレスを使う場合は、人数分のアカウント契約が必要です。（1人で複数のアドレスを管理する場合は1契約で可能です）</p>
                         </div>
                         <div class="p-4 bg-red-50 rounded-lg">
                             <h4 class="font-semibold text-red-800">利用者側のデメリット</h4>
@@ -172,7 +178,8 @@
         <section id="visualization" class="mb-12">
             <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8">特徴をチャートで視覚化</h2>
             <div class="bg-white p-4 sm:p-6 rounded-xl shadow-lg">
-                 <p class="text-center text-slate-600 mb-4">各プランがどの分野に強いのかをレーダーチャートで見てみましょう。面積が広いほど、その分野に強いことを示します。</p>
+                 <p class="text-center text-slate-600">各プランがどの分野に強いのかをレーダーチャートで見てみましょう。</p>
+                 <p class="text-center text-slate-600 mb-4">面積が広いほど、その分野に強いことを示します。</p>
                 <div class="chart-container">
                     <canvas id="featureChart"></canvas>
                 </div>
@@ -201,7 +208,8 @@
         </section>
 
         <section id="sole-proprietor-hints" class="mb-12">
-            <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8">【個人事業主・副業の方向け】もっと具体的に！業種別ヒント</h2>
+            <h2 class="text-2xl sm:text-3xl font-bold text-center text-green-800">【個人事業主・副業の方向け】</h2>
+            <p class="text-center text-2xl sm:text-3xl font-bold mb-8 text-green-800">もっと具体的に！業種別ヒント</p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
                 <div class="bg-white p-6 rounded-xl shadow-lg">
                     <h3 class="text-xl font-bold text-slate-800 mb-4">✅ Workspaceが特に向いている業種</h3>
@@ -262,7 +270,7 @@
 
             const resultsData = {
                 admin: {
-                    title: "🏢 Gemini for Workspace がおすすめです",
+                    title: "🏢 Google Workspace がおすすめです",
                     description: "顧客との信頼関係や日々の業務効率を重視するなら、セキュリティと自動化機能に優れたWorkspaceプランが最適です。顧客情報などを扱う上で、チャット履歴が監査ログとして残ることもメリットになります。",
                     details: `
                         <h4 class="font-bold mb-2">おすすめの理由</h4>
@@ -326,7 +334,7 @@
                         pointHoverBorderColor: 'rgba(59, 130, 246, 1)'
                     },
                     {
-                        label: 'Gemini for Workspace',
+                        label: 'Google Workspace',
                         data: [4, 5, 5, 3, 1],
                         backgroundColor: 'rgba(100, 116, 139, 0.2)',
                         borderColor: 'rgba(100, 116, 139, 1)',
@@ -398,4 +406,3 @@
     </script>
 </body>
 </html>
-
