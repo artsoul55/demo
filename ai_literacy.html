@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成AIと個人情報に関する国際比較レポート</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Neutral (Off-white/Light Gray) with Professional Blue and Green accents -->
+    <!-- Application Structure Plan: The SPA uses a top-down narrative structure to guide the user from the broad global context to a specific comparison with Japan, and finally to actionable recommendations. This storytelling approach is more engaging than a simple dashboard. The core interactive element is the segmented comparison table, which allows users to directly explore the nuances of AI adoption attitudes, fulfilling the primary user request in an organized, non-overwhelming way. Navigation is implicit through scrolling, with a sticky header for quick jumps between sections. -->
+    <!-- Visualization & Content Choices: 
+    - Report Info: Global vs. Japan AI/data attitudes. Goal: Compare. Viz: Interactive comparison table with filters (HTML/JS). Interaction: User selects region/segment to see detailed text. Justification: Handles dense, qualitative data effectively and directly addresses the user's table requirement.
+    - Report Info: Nuanced differences in attitude (risk, innovation, etc.). Goal: Compare visually. Viz: Radar chart (Chart.js/Canvas). Interaction: Static view for immediate impact, showing the multi-faceted gap. Justification: Radar charts are excellent for comparing multiple variables across different groups, providing an instant "shape" of the cultural/procedural differences.
+    - Report Info: Recommendations for Japan. Goal: Organize/Inform. Viz: Thematic cards and a step-by-step roadmap diagram (HTML/CSS). Interaction: Hovering on steps shows details. Justification: Transforms a simple list into a strategic, visually appealing guide, making the final recommendations more memorable and impactful. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .section-title {
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #005f73;
+            text-align: center;
+        }
+        .section-subtitle {
+            font-size: 1.125rem;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem auto;
+            color: #495057;
+        }
+        .active-btn {
+            background-color: #005f73 !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .inactive-btn {
+            background-color: #ffffff;
+            color: #495057;
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link:hover {
+            color: #005f73;
+            border-bottom-color: #005f73;
+        }
+        .roadmap-step {
+            transition: all 0.3s ease;
+        }
+        .roadmap-step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <header id="header" class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <div class="text-xl font-bold text-gray-800">生成AI活用レポート</div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#comparison" class="text-gray-600 hover:text-blue-600 nav-link">意識と行動の比較</a>
+                <a href="#analysis" class="text-gray-600 hover:text-blue-600 nav-link">日米欧の比較分析</a>
+                <a href="#roadmap" class="text-gray-600 hover:text-blue-600 nav-link">日本の成長戦略</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+        <section id="hero" class="text-center py-16">
+            <h1 class="text-4xl md:text-5xl font-bold text-[#003440] mb-4">生成AIと個人情報</h1>
+            <h2 class="text-xl md:text-2xl text-gray-600 mb-8">世界の「活用」と日本の「慎重論」<br class="md:hidden">その違いはどこから来るのか？</h2>
+            <p class="max-w-3xl mx-auto text-gray-700">
+                生成AIの活用が世界で加速する中、日本では個人情報保護への懸念から活用にブレーキがかかる場面が少なくありません。本レポートでは、海外（特に欧米）と日本の意識・行動の違いを多角的に分析し、日本が生成AI時代をリードするための道筋を探ります。
+            </p>
+        </section>
+
+        <section id="comparison" class="py-16">
+            <h2 class="section-title">意識と行動の国際比較</h2>
+            <p class="section-subtitle">
+                国や立場によって、生成AIへの個人情報の入力に対する考え方や実際の行動は大きく異なります。ここでは「海外（欧米）」と「日本」を比較し、さらにセグメントを切り替えることで、その違いを詳しく見ることができます。
+            </p>
+
+            <div class="max-w-4xl mx-auto">
+                <div class="flex justify-center mb-8 border-b">
+                    <button id="btn-region-global" class="region-btn text-lg py-2 px-6 focus:outline-none transition-all duration-300">海外 (欧米)</button>
+                    <button id="btn-region-japan" class="region-btn text-lg py-2 px-6 focus:outline-none transition-all duration-300">日本</button>
+                </div>
+                
+                <div class="flex flex-wrap justify-center gap-2 mb-8">
+                    <button id="btn-segment-business" class="segment-btn py-2 px-4 rounded-full text-sm font-semibold focus:outline-none transition-all duration-300">ビジネス利用</button>
+                    <button id="btn-segment-private" class="segment-btn py-2 px-4 rounded-full text-sm font-semibold focus:outline-none transition-all duration-300">プライベート利用</button>
+                    <button id="btn-segment-high-literacy" class="segment-btn py-2 px-4 rounded-full text-sm font-semibold focus:outline-none transition-all duration-300">高リテラシー層</button>
+                    <button id="btn-segment-low-literacy" class="segment-btn py-2 px-4 rounded-full text-sm font-semibold focus:outline-none transition-all duration-300">低リテラシー層</button>
+                </div>
+
+                <div id="analysis-content" class="bg-white p-6 md:p-8 rounded-xl shadow-lg min-h-[300px]">
+                    
+                </div>
+            </div>
+        </section>
+
+        <section id="analysis" class="py-16">
+            <h2 class="section-title">日米欧の比較分析</h2>
+            <p class="section-subtitle">
+                生成AIに対する姿勢の違いは、文化的背景や法制度に根ざしています。レーダーチャートは、各地域の特性を視覚的に示しており、その差異が一目でわかります。
+            </p>
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div class="chart-container mx-auto">
+                    <canvas id="attitude-chart"></canvas>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <h3 class="font-bold text-lg text-[#005f73]"><span class="text-blue-500 font-extrabold">■</span> 欧州 (EU)</h3>
+                        <p class="text-gray-700 ml-4">「個人の権利」を最優先。GDPR（一般データ保護規則）に基づき、厳格なデータ保護と透明性を企業に求める。AIの活用は、個人の権利を侵害しないことが大前提。</p>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg text-[#005f73]"><span class="text-green-500 font-extrabold">■</span> 米国 (US)</h3>
+                        <p class="text-gray-700 ml-4">「イノベーションと自由競争」を重視。CCPA（カリフォルニア州消費者プライバシー法）など州ごとの規制はあるが、基本的には企業の自由なデータ活用を促進。「オプトアウト（事後的な拒否）」の文化が強い。</p>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg text-[#005f73]"><span class="text-red-500 font-extrabold">■</span> 日本 (Japan)</h3>
+                        <p class="text-gray-700 ml-4">「リスク回避と集団の調和」を優先。個人情報保護法は厳格だが、それ以上に「万が一」のリスクを恐れる文化的側面が強い。「使わない」ことが最も安全な選択と見なされがち。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="roadmap" class="py-16">
+            <h2 class="section-title">日本の成長戦略：世界一のAI活用国家へ</h2>
+            <p class="section-subtitle">
+                日本の慎重さは、信頼性や安全性の面で強みにもなり得ます。リスクを管理しつつ、AIの恩恵を最大限に引き出すための3段階の戦略的ロードマップを提案します。
+            </p>
+            <div class="relative">
+                <div class="hidden md:block absolute top-1/2 left-0 w-full border-t-2 border-dashed border-gray-300"></div>
+                <div class="grid md:grid-cols-3 gap-8 text-center relative">
+                    <div class="bg-white p-6 rounded-xl shadow-lg roadmap-step">
+                        <div class="mx-auto mb-4 bg-teal-100 text-teal-600 w-16 h-16 rounded-full flex items-center justify-center">
+                            <span class="text-2xl font-bold">1</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-gray-800">意識改革とリテラシー向上</h3>
+                        <p class="text-gray-600">「リスクゼロ」から「リスクマネジメント」へ。AIはあくまでツールであると理解し、その特性（得意・不得意）を学ぶ。企業は全社員対象のAIリテラシー教育を必須とし、成功・失敗事例を共有する文化を醸成する。</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg roadmap-step">
+                        <div class="mx-auto mb-4 bg-sky-100 text-sky-600 w-16 h-16 rounded-full flex items-center justify-center">
+                            <span class="text-2xl font-bold">2</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-gray-800">安全な活用環境の整備</h3>
+                        <p class="text-gray-600">社内データ専用のプライベートAI環境や、API連携によるデータ非学習設定の活用を徹底。明確な「AI活用ガイドライン」を策定し、入力して良い情報・ダメな情報を階層化（例：公開情報、社内情報、機密情報）。</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg roadmap-step">
+                        <div class="mx-auto mb-4 bg-indigo-100 text-indigo-600 w-16 h-16 rounded-full flex items-center justify-center">
+                            <span class="text-2xl font-bold">3</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-gray-800">実践とライフワーク化</h3>
+                        <p class="text-gray-600">まずは定型業務の自動化や情報収集など、リスクの低い業務からAI活用をスモールスタート。成功体験を積み重ね、徐々に応用範囲を拡大。AIを「特別なもの」ではなく、日常業務の「信頼できるアシスタント」として定着させる。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white text-center p-4">
+        <p>&copy; 2025 Generative AI Global Report. All rights reserved.</p>
+    </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    const analysisData = {
+        global: {
+            business: {
+                title: 'ビジネス利用 (海外)',
+                interpretation: '「生産性向上のための強力なツール」。個人情報の入力は、明確なビジネス上の利益があり、法的枠組み（GDPR等）を遵守する限りにおいて許容される。データは競争力の源泉であり、活用しないことは機会損失と捉える。リスクは管理・最小化すべきものであり、ゼロにするものではない。',
+                action: '多くの企業が、顧客データ分析、マーケティング、ソフトウェア開発などに積極的に生成AIを活用。OpenAI Enterprise版など、データが学習に使われないセキュアなサービスを導入。従業員向けにAI利用ガイドラインを策定し、リスク管理と活用推進を両立させる。'
+            },
+            private: {
+                title: 'プライベート利用 (海外)',
+                interpretation: '「生活を豊かにする便利なアシスタント」。個人の趣味や旅行計画、写真の整理・加工など、パーソナルな情報を入力することへの抵抗は比較的少ない。「オプトアウト（拒否権）」が保障されていれば、基本的には自己責任でサービスを利用する、という考え方が主流。',
+                action: '旅行計画の相談、メールや文章の作成支援、趣味の画像生成など、日常的に活用。プライバシー設定を確認し、必要に応じてデータ提供を制限するが、利便性を優先する傾向が強い。'
+            },
+            'high-literacy': {
+                title: '高リテラシー層 (海外)',
+                interpretation: '「カスタマイズ可能な強力なパートナー」。AIの仕組みやリスクを理解した上で、自己の目的達成のために最大限活用しようとする。API連携や特定用途のモデルを使いこなし、入力する情報を自らコントロール。プライバシーと利便性のトレードオフを意識的に判断する。',
+                action: 'APIを利用して独自のアプリケーションを開発。プロンプトエンジニアリングを駆使し、機微な情報は抽象化・仮名化して入力するなど、高度なリスク管理を実践。プライベートなLLMを構築・利用するケースもある。'
+            },
+            'low-literacy': {
+                title: '低リテラシー層 (海外)',
+                interpretation: '「魔法の箱」。AIがどのように動作するかはよく理解していないが、その結果の利便性は享受したい。個人情報入力のリスクを漠然と認識しているが、具体的な対策は取らないことが多い。大手テック企業への信頼感が行動のベースにある。',
+                action: '主に一般消費者向けのAIチャットボットや画像生成サービスを利用。利用規約やプライバシーポリシーを読まずに同意することが多い。問題が発生して初めてリスクを認識する傾向がある。'
+            }
+        },
+        japan: {
+            business: {
+                title: 'ビジネス利用 (日本)',
+                interpretation: '「潜在的リスクを伴う未知のテクノロジー」。個人情報の入力は、万が一の情報漏洩時の信用の失墜や法的責任を考えると、原則として避けるべき、という風潮が強い。「使わない」ことが最も安全なリスク管理策と見なされがち。同調圧力により、先進的な企業でも活用表明には慎重になる。',
+                action: '多くの企業が利用を禁止、あるいは用途を極端に制限している。一部の先進企業が、情報システム部門の管理下で、個人情報を含まない範囲での試用を開始。活用している場合でも、その事実を公表しないことが多い。'
+            },
+            private: {
+                title: 'プライベート利用 (日本)',
+                interpretation: '「面白そうだが、個人情報を入れるのは怖い」。新しい技術への興味はあるものの、「ChatGPTに個人情報を絶対に入力してはいけない」というメディアやSNSでの論調に強く影響される。写真や実名、詳細な個人的な悩みの入力には強い抵抗感を持つ。',
+                action: '一般的な調べ物やアイデア出しには利用するが、個人が特定できる情報の入力は避ける傾向。特に画像生成AIでの写真のアップロードには非常に慎重。'
+            },
+            'high-literacy': {
+                title: '高リテラシー層 (日本)',
+                interpretation: '「リスクを理解し、限定的に活用するツール」。海外の動向や技術仕様を理解しており、安全な使い方（API利用、データ非学習設定など）を知っている。しかし、社会全体の慎重な雰囲気を意識し、公の場での積極的な活用アピールは控える傾向がある。',
+                action: '海外の高リテラシー層と同様に、API連携や安全な設定での活用を試みる。しかし、業務で活用する際は、周囲の理解を得るための説明コストが高い。個人開発やクローズドなコミュニティでの活用が中心。'
+            },
+            'low-literacy': {
+                title: '低リテラシー層 (日本)',
+                interpretation: '「よくわからないけど、危ないもの」。テレビやネットニュースの「AIの危険性」に関する報道を断片的に受け取り、漠然とした不安感を抱いている。「個人情報を入力すると悪用される」という強い先入観を持つ。',
+                action: '興味本位で少し触ることはあっても、継続的な利用には至らない。あるいは、リスクへの不安から最初から全く利用しない。「自分には関係ないもの」と捉えていることが多い。'
+            }
+        }
+    };
+
+    let currentRegion = 'global';
+    let currentSegment = 'business';
+
+    const analysisContent = document.getElementById('analysis-content');
+    const regionBtns = document.querySelectorAll('.region-btn');
+    const segmentBtns = document.querySelectorAll('.segment-btn');
+
+    function updateContent() {
+        const data = analysisData[currentRegion][currentSegment];
+        analysisContent.innerHTML = `
+            <div class="fade-in">
+                <h3 class="text-2xl font-bold mb-4 text-[#003440]">${data.title}</h3>
+                <div class="space-y-4">
+                    <div>
+                        <h4 class="font-semibold text-lg text-gray-700">解釈・考え方</h4>
+                        <p class="text-gray-600">${data.interpretation}</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-lg text-gray-700">実際の行動</h4>
+                        <p class="text-gray-600">${data.action}</p>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    function updateButtons() {
+        regionBtns.forEach(btn => {
+            if (btn.id === `btn-region-${currentRegion}`) {
+                btn.classList.add('active-btn', 'border-b-2', 'border-blue-500');
+                btn.classList.remove('inactive-btn', 'text-gray-500');
+            } else {
+                btn.classList.add('inactive-btn', 'text-gray-500');
+                btn.classList.remove('active-btn', 'border-b-2', 'border-blue-500');
+            }
+        });
+
+        segmentBtns.forEach(btn => {
+            if (btn.id === `btn-segment-${currentSegment.replace('_', '-')}`) {
+                btn.classList.add('active-btn');
+                btn.classList.remove('inactive-btn');
+            } else {
+                btn.classList.add('inactive-btn');
+                btn.classList.remove('active-btn');
+            }
+        });
+    }
+
+    regionBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            currentRegion = btn.id.split('-')[2];
+            updateButtons();
+            updateContent();
+        });
+    });
+
+    segmentBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            currentSegment = btn.id.split('-').slice(2).join('-');
+            updateButtons();
+            updateContent();
+        });
+    });
+    
+    const chartCtx = document.getElementById('attitude-chart').getContext('2d');
+    const chartData = {
+        labels: ['イノベーション重視', 'リスク許容度', 'ビジネス導入速度', '個人データ活用意欲', '法的・倫理的議論の活発さ', 'ボトムアップでの活用'],
+        datasets: [
+            {
+                label: '米国',
+                data: [9, 8, 9, 8, 7, 9],
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 2
+            },
+            {
+                label: '欧州',
+                data: [7, 6, 6, 5, 9, 6],
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 2
+            },
+            {
+                label: '日本',
+                data: [5, 3, 3, 2, 5, 4],
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 2
+            }
+        ]
+    };
+    new Chart(chartCtx, {
+        type: 'radar',
+        data: chartData,
+        options: {
+            maintainAspectRatio: false,
+            scales: {
+                r: {
+                    angleLines: {
+                        display: true
+                    },
+                    suggestedMin: 0,
+                    suggestedMax: 10,
+                    pointLabels: {
+                       font: {
+                          size: 11
+                       }
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    position: 'top',
+                }
+            }
+        }
+    });
+    
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+    
+    currentRegion = 'global';
+    currentSegment = 'business';
+    updateButtons();
+    updateContent();
+});
+</script>
+</body>
+</html>
