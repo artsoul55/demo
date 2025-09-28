@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>生成AIと個人情報に関する国際比較レポート</title>
+    <title>生成AIと個人情報 v2.0：日米欧3極比較と日本の戦略</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
     <!-- Chosen Palette: Calm Neutral (Off-white/Light Gray) with Professional Blue and Green accents -->
-    <!-- Application Structure Plan: The SPA uses a top-down narrative structure to guide the user from the broad global context to a specific comparison with Japan, and finally to actionable recommendations. This storytelling approach is more engaging than a simple dashboard. The core interactive element is the segmented comparison table, which allows users to directly explore the nuances of AI adoption attitudes, fulfilling the primary user request in an organized, non-overwhelming way. Navigation is implicit through scrolling, with a sticky header for quick jumps between sections. -->
+    <!-- Application Structure Plan: Version 2.0 reframes the analysis as a three-region comparison (US, EU, Japan) to correct the previous oversimplification. The core interaction is now a three-way toggle in the main comparison section, allowing users to explore each region's distinct approach. This structure directly addresses the fact-check's primary criticism and provides a more accurate, nuanced understanding. The narrative flow remains: broad comparison -> visual analysis -> actionable recommendations for Japan. -->
     <!-- Visualization & Content Choices: 
-    - Report Info: Global vs. Japan AI/data attitudes. Goal: Compare. Viz: Interactive comparison table with filters (HTML/JS). Interaction: User selects region/segment to see detailed text. Justification: Handles dense, qualitative data effectively and directly addresses the user's table requirement.
-    - Report Info: Nuanced differences in attitude (risk, innovation, etc.). Goal: Compare visually. Viz: Radar chart (Chart.js/Canvas). Interaction: Static view for immediate impact, showing the multi-faceted gap. Justification: Radar charts are excellent for comparing multiple variables across different groups, providing an instant "shape" of the cultural/procedural differences.
-    - Report Info: Recommendations for Japan. Goal: Organize/Inform. Viz: Thematic cards and a step-by-step roadmap diagram (HTML/CSS). Interaction: Hovering on steps shows details. Justification: Transforms a simple list into a strategic, visually appealing guide, making the final recommendations more memorable and impactful. -->
+    - Report Info: US, EU, and Japan's AI/data attitudes. Goal: Compare accurately. Viz: Interactive table with a 3-region filter (HTML/JS). Interaction: User selects a region (US/EU/Japan) and a user segment to see detailed text. Justification: This replaces the flawed "Global" category with a precise, multi-polar view, fulfilling the core requirement of the user's fact-check.
+    - Report Info: Nuanced differences in attitude. Goal: Compare tendencies visually. Viz: Radar chart (Chart.js/Canvas). Interaction: Static view for impact. Justification: The chart is retained for its strong visual comparison capabilities, but is now explicitly framed as a visualization of "general tendencies" not hard data, adding a crucial layer of intellectual honesty.
+    - Report Info: Actionable recommendations for Japan. Goal: Organize/Inform strategically. Viz: Thematic cards and a step-by-step roadmap diagram (HTML/CSS). Interaction: Hovering on steps shows details. Justification: The roadmap has been updated with more concrete, Japan-specific strategies (e.g., "Trustworthy AI," government support for SMEs, sharing platforms), making it significantly more practical and valuable than the previous generic version. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
@@ -87,10 +87,10 @@
 
     <header id="header" class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
         <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <div class="text-xl font-bold text-gray-800">生成AI活用レポート</div>
+            <div class="text-xl font-bold text-gray-800">生成AI活用レポート v2.0</div>
             <div class="hidden md:flex space-x-8">
-                <a href="#comparison" class="text-gray-600 hover:text-blue-600 nav-link">意識と行動の比較</a>
-                <a href="#analysis" class="text-gray-600 hover:text-blue-600 nav-link">日米欧の比較分析</a>
+                <a href="#comparison" class="text-gray-600 hover:text-blue-600 nav-link">日米欧の比較</a>
+                <a href="#analysis" class="text-gray-600 hover:text-blue-600 nav-link">傾向分析チャート</a>
                 <a href="#roadmap" class="text-gray-600 hover:text-blue-600 nav-link">日本の成長戦略</a>
             </div>
         </nav>
@@ -98,23 +98,24 @@
 
     <main class="container mx-auto p-4 md:p-8">
         <section id="hero" class="text-center py-16">
-            <h1 class="text-4xl md:text-5xl font-bold text-[#003440] mb-4">生成AIと個人情報</h1>
-            <h2 class="text-xl md:text-2xl text-gray-600 mb-8">世界の「活用」と日本の「慎重論」<br class="md:hidden">その違いはどこから来るのか？</h2>
+            <h1 class="text-4xl md:text-5xl font-bold text-[#003440] mb-4">生成AIと個人情報：日米欧 三極比較</h1>
+            <h2 class="text-xl md:text-2xl text-gray-600 mb-8">米国の「推進」、欧州の「権利」、日本の「慎重」<br class="md:hidden">その構造的違いを解き明かす</h2>
             <p class="max-w-3xl mx-auto text-gray-700">
-                生成AIの活用が世界で加速する中、日本では個人情報保護への懸念から活用にブレーキがかかる場面が少なくありません。本レポートでは、海外（特に欧米）と日本の意識・行動の違いを多角的に分析し、日本が生成AI時代をリードするための道筋を探ります。
+                生成AIの活用は、国や地域の法的・文化的背景によって大きく異なります。本レポートv2.0では、不正確な「海外」という括りをやめ、「米国」「欧州」「日本」の3極に分けて詳細に比較分析。日本の進むべき道を具体的に提言します。
             </p>
         </section>
 
         <section id="comparison" class="py-16">
-            <h2 class="section-title">意識と行動の国際比較</h2>
+            <h2 class="section-title">意識と行動の3極比較</h2>
             <p class="section-subtitle">
-                国や立場によって、生成AIへの個人情報の入力に対する考え方や実際の行動は大きく異なります。ここでは「海外（欧米）」と「日本」を比較し、さらにセグメントを切り替えることで、その違いを詳しく見ることができます。
+                生成AIへの個人情報の入力に対する考え方は、米国、欧州、日本では根本的に異なります。地域とセグメントを切り替えることで、その具体的な違いを深く理解できます。
             </p>
 
             <div class="max-w-4xl mx-auto">
                 <div class="flex justify-center mb-8 border-b">
-                    <button id="btn-region-global" class="region-btn text-lg py-2 px-6 focus:outline-none transition-all duration-300">海外 (欧米)</button>
-                    <button id="btn-region-japan" class="region-btn text-lg py-2 px-6 focus:outline-none transition-all duration-300">日本</button>
+                    <button id="btn-region-us" class="region-btn text-lg py-2 px-6 focus:outline-none transition-all duration-300">米国 (US)</button>
+                    <button id="btn-region-eu" class="region-btn text-lg py-2 px-6 focus:outline-none transition-all duration-300">欧州 (EU)</button>
+                    <button id="btn-region-japan" class="region-btn text-lg py-2 px-6 focus:outline-none transition-all duration-300">日本 (Japan)</button>
                 </div>
                 
                 <div class="flex flex-wrap justify-center gap-2 mb-8">
@@ -131,9 +132,9 @@
         </section>
 
         <section id="analysis" class="py-16">
-            <h2 class="section-title">日米欧の比較分析</h2>
+            <h2 class="section-title">アプローチ傾向の可視化</h2>
             <p class="section-subtitle">
-                生成AIに対する姿勢の違いは、文化的背景や法制度に根ざしています。レーダーチャートは、各地域の特性を視覚的に示しており、その差異が一目でわかります。
+                このレーダーチャートは、各地域のAIに対するアプローチの**一般的な傾向を視覚化したものであり、定量的なデータに基づくものではありません。** 法制度や文化的背景から来る姿勢の違いが一目でわかります。
             </p>
             <div class="grid md:grid-cols-2 gap-8 items-center">
                 <div class="chart-container mx-auto">
@@ -141,25 +142,25 @@
                 </div>
                 <div class="space-y-4">
                     <div>
-                        <h3 class="font-bold text-lg text-[#005f73]"><span class="text-blue-500 font-extrabold">■</span> 欧州 (EU)</h3>
-                        <p class="text-gray-700 ml-4">「個人の権利」を最優先。GDPR（一般データ保護規則）に基づき、厳格なデータ保護と透明性を企業に求める。AIの活用は、個人の権利を侵害しないことが大前提。</p>
+                        <h3 class="font-bold text-lg text-[#005f73]"><span class="text-blue-500 font-extrabold">■</span> 米国 (US) - イノベーション優先型</h3>
+                        <p class="text-gray-700 ml-4">「イノベーションと自由競争」を最優先。CCPA/CPRAなど州法レベルでの規制はあるが、基本は企業の自由なデータ活用を促進する「オプトアウト」文化。NISTのAIリスク管理フレームワーク等で事後的な健全性確保も目指す。</p>
                     </div>
                     <div>
-                        <h3 class="font-bold text-lg text-[#005f73]"><span class="text-green-500 font-extrabold">■</span> 米国 (US)</h3>
-                        <p class="text-gray-700 ml-4">「イノベーションと自由競争」を重視。CCPA（カリフォルニア州消費者プライバシー法）など州ごとの規制はあるが、基本的には企業の自由なデータ活用を促進。「オプトアウト（事後的な拒否）」の文化が強い。</p>
+                        <h3 class="font-bold text-lg text-[#005f73]"><span class="text-green-500 font-extrabold">■</span> 欧州 (EU) - 権利保護型</h3>
+                        <p class="text-gray-700 ml-4">データ保護を「基本的人権」と位置付け。GDPRに基づき、データ処理には明確な法的根拠が必須の「オプトイン」文化。AI法（AI Act）でリスクベースの厳格な規制を導入し、個人の権利保護を徹底。</p>
                     </div>
                     <div>
-                        <h3 class="font-bold text-lg text-[#005f73]"><span class="text-red-500 font-extrabold">■</span> 日本 (Japan)</h3>
-                        <p class="text-gray-700 ml-4">「リスク回避と集団の調和」を優先。個人情報保護法は厳格だが、それ以上に「万が一」のリスクを恐れる文化的側面が強い。「使わない」ことが最も安全な選択と見なされがち。</p>
+                        <h3 class="font-bold text-lg text-[#005f73]"><span class="text-red-500 font-extrabold">■</span> 日本 (Japan) - リスク回避型</h3>
+                        <p class="text-gray-700 ml-4">「リスクの極小化と信用の維持」を最優先。個人情報保護法に加え、「万が一」の事態を恐れる文化的側面が強い。結果として「使わない」という選択が合理的と見なされやすい。</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <section id="roadmap" class="py-16">
-            <h2 class="section-title">日本の成長戦略：世界一のAI活用国家へ</h2>
+            <h2 class="section-title">日本の成長戦略：世界をリードするAI活用国家へ</h2>
             <p class="section-subtitle">
-                日本の慎重さは、信頼性や安全性の面で強みにもなり得ます。リスクを管理しつつ、AIの恩恵を最大限に引き出すための3段階の戦略的ロードマップを提案します。
+                日本の慎重さは「信頼性」という強みに転換できます。リスクを適切に管理し、AIの恩恵を最大化するための、より具体的で実践的な3段階の戦略を提案します。
             </p>
             <div class="relative">
                 <div class="hidden md:block absolute top-1/2 left-0 w-full border-t-2 border-dashed border-gray-300"></div>
@@ -168,22 +169,22 @@
                         <div class="mx-auto mb-4 bg-teal-100 text-teal-600 w-16 h-16 rounded-full flex items-center justify-center">
                             <span class="text-2xl font-bold">1</span>
                         </div>
-                        <h3 class="text-xl font-bold mb-2 text-gray-800">意識改革とリテラシー向上</h3>
-                        <p class="text-gray-600">「リスクゼロ」から「リスクマネジメント」へ。AIはあくまでツールであると理解し、その特性（得意・不得意）を学ぶ。企業は全社員対象のAIリテラシー教育を必須とし、成功・失敗事例を共有する文化を醸成する。</p>
+                        <h3 class="text-xl font-bold mb-2 text-gray-800">意識改革：<br>「信頼されるAI」を日本の強みに</h3>
+                        <p class="text-gray-600">リスク回避志向を「高品質・高信頼性」の追求へと転換。「Trustworthy AI」の開発・運用で世界をリードする目標を掲げる。全社員にAIの特性とリスクマネジメント教育を実施し、失敗を許容し知見を共有する文化を醸成する。</p>
                     </div>
                     <div class="bg-white p-6 rounded-xl shadow-lg roadmap-step">
                         <div class="mx-auto mb-4 bg-sky-100 text-sky-600 w-16 h-16 rounded-full flex items-center justify-center">
                             <span class="text-2xl font-bold">2</span>
                         </div>
-                        <h3 class="text-xl font-bold mb-2 text-gray-800">安全な活用環境の整備</h3>
-                        <p class="text-gray-600">社内データ専用のプライベートAI環境や、API連携によるデータ非学習設定の活用を徹底。明確な「AI活用ガイドライン」を策定し、入力して良い情報・ダメな情報を階層化（例：公開情報、社内情報、機密情報）。</p>
+                        <h3 class="text-xl font-bold mb-2 text-gray-800">制度と環境の整備：<br>官民による具体的支援</h3>
+                        <p class="text-gray-600">企業が参照できる、より具体的で実践的な公的ガイドラインを整備。特に中小企業向けに、安価でセキュアな国産AI環境やツールの導入を政府・業界団体が支援。明確な「AI活用ガイドライン」の策定を企業に義務付ける。</p>
                     </div>
                     <div class="bg-white p-6 rounded-xl shadow-lg roadmap-step">
                         <div class="mx-auto mb-4 bg-indigo-100 text-indigo-600 w-16 h-16 rounded-full flex items-center justify-center">
                             <span class="text-2xl font-bold">3</span>
                         </div>
-                        <h3 class="text-xl font-bold mb-2 text-gray-800">実践とライフワーク化</h3>
-                        <p class="text-gray-600">まずは定型業務の自動化や情報収集など、リスクの低い業務からAI活用をスモールスタート。成功体験を積み重ね、徐々に応用範囲を拡大。AIを「特別なもの」ではなく、日常業務の「信頼できるアシスタント」として定着させる。</p>
+                        <h3 class="text-xl font-bold mb-2 text-gray-800">実践と文化の醸成：<br>成功事例の共有と挑戦の評価</h3>
+                        <p class="text-gray-600">まずはリスクの低い業務からスモールスタートし、成功体験を積む。業界を超えて成功・失敗事例を共有するプラットフォームを構築し、横展開を促進。AI活用の挑戦を人事評価に組み込むなど、組織制度レベルでの変革を断行する。</p>
                     </div>
                 </div>
             </div>
@@ -191,60 +192,82 @@
     </main>
 
     <footer class="bg-gray-800 text-white text-center p-4">
-        <p>&copy; 2025 Generative AI Global Report. All rights reserved.</p>
+        <p>&copy; 2025 Generative AI Global Report v2.0. All rights reserved.</p>
     </footer>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
 
     const analysisData = {
-        global: {
+        us: {
             business: {
-                title: 'ビジネス利用 (海外)',
-                interpretation: '「生産性向上のための強力なツール」。個人情報の入力は、明確なビジネス上の利益があり、法的枠組み（GDPR等）を遵守する限りにおいて許容される。データは競争力の源泉であり、活用しないことは機会損失と捉える。リスクは管理・最小化すべきものであり、ゼロにするものではない。',
-                action: '多くの企業が、顧客データ分析、マーケティング、ソフトウェア開発などに積極的に生成AIを活用。OpenAI Enterprise版など、データが学習に使われないセキュアなサービスを導入。従業員向けにAI利用ガイドラインを策定し、リスク管理と活用推進を両立させる。'
+                title: 'ビジネス利用 (米国)',
+                interpretation: '「競争優位を確立するツール」。データはビジネスの燃料であり、活用しないことは機会損失。CCPA/CPRA等の州法を遵守しつつ、利用規約で包括的同意を得て積極的にデータを活用。リスクは管理・最小化すべきものであり、イノベーションの阻害要因ではない。',
+                action: '顧客データ分析、パーソナライズドマーケティング、製品開発にAIを全面採用。OpenAI Enterprise版などセキュアなサービスを導入する動機は、顧客信頼の獲得と法的リスク管理。活用を前提としたガイドラインを策定。'
             },
             private: {
-                title: 'プライベート利用 (海外)',
-                interpretation: '「生活を豊かにする便利なアシスタント」。個人の趣味や旅行計画、写真の整理・加工など、パーソナルな情報を入力することへの抵抗は比較的少ない。「オプトアウト（拒否権）」が保障されていれば、基本的には自己責任でサービスを利用する、という考え方が主流。',
-                action: '旅行計画の相談、メールや文章の作成支援、趣味の画像生成など、日常的に活用。プライバシー設定を確認し、必要に応じてデータ提供を制限するが、利便性を優先する傾向が強い。'
+                title: 'プライベート利用 (米国)',
+                interpretation: '「生活を効率化するパーソナルアシスタント」。利便性を最優先し、個人情報を入力することへの抵抗は小さい。「オプトアウト（事後的な拒否権）」が保障されていれば、自己責任でサービスを最大限利用する文化。',
+                action: '日常的な情報検索、文章作成、エンターテイメントなど、生活のあらゆる場面で活用。プライバシー設定を意識する層もいるが、多くはデフォルト設定のまま利便性を享受する。'
             },
             'high-literacy': {
-                title: '高リテラシー層 (海外)',
-                interpretation: '「カスタマイズ可能な強力なパートナー」。AIの仕組みやリスクを理解した上で、自己の目的達成のために最大限活用しようとする。API連携や特定用途のモデルを使いこなし、入力する情報を自らコントロール。プライバシーと利便性のトレードオフを意識的に判断する。',
-                action: 'APIを利用して独自のアプリケーションを開発。プロンプトエンジニアリングを駆使し、機微な情報は抽象化・仮名化して入力するなど、高度なリスク管理を実践。プライベートなLLMを構築・利用するケースもある。'
+                title: '高リテラシー層 (米国)',
+                interpretation: '「自己実現を加速させる拡張知能」。AIの技術的側面を理解し、API連携や独自モデルのファインチューニングを通じて、目的達成のために能動的に活用。プライバシーと利便性のトレードオフを計算し、主体的に判断する。',
+                action: '独自のAIサービスやツールを開発・利用。入力情報をコントロールし、リスクとリターンを天秤にかけて、時には大胆に個人データを用いてパーソナライズの精度を高める。'
             },
             'low-literacy': {
-                title: '低リテラシー層 (海外)',
-                interpretation: '「魔法の箱」。AIがどのように動作するかはよく理解していないが、その結果の利便性は享受したい。個人情報入力のリスクを漠然と認識しているが、具体的な対策は取らないことが多い。大手テック企業への信頼感が行動のベースにある。',
-                action: '主に一般消費者向けのAIチャットボットや画像生成サービスを利用。利用規約やプライバシーポリシーを読まずに同意することが多い。問題が発生して初めてリスクを認識する傾向がある。'
+                title: '低リテラシー層 (米国)',
+                interpretation: '「便利な無料サービス」。大手テック企業が提供するサービスを信頼し、深く考えずに利用。個人情報入力のリスクは漠然と認識しているが、利便性が大きく上回るため行動には移さない。',
+                action: 'SNSに統合されたAI機能や、主要な検索エンジンのAIチャットなどを多用。利用規約を読まずに同意し、パーソナライズされた広告や推薦を自然なものとして受け入れている。'
+            }
+        },
+        eu: {
+            business: {
+                title: 'ビジネス利用 (欧州)',
+                interpretation: '「厳格な法的義務を伴う技術」。GDPR遵守が絶対的な前提。個人データの処理には明確な法的根拠と透明性が求められ、違反時の制裁金リスクは極めて高い。AI活用は、データ保護影響評価（DPIA）など、厳格なコンプライアンスプロセスを経た上でないと進められない。',
+                action: 'AI活用は米国に比べ慎重。個人データを扱う場合は、匿名化・仮名化処理を徹底。AIベンダー選定時には、データ処理地やGDPR準拠を最重要項目として評価。活用はコンプライアンス部門の強い管理下で行われる。'
+            },
+            private: {
+                title: 'プライベート利用 (欧州)',
+                interpretation: '「権利が保護された上で利用するツール」。データプライバシーは基本的人権であるという意識が根付いている。サービスの利用にあたり、データがどのように使われるかを厳しく吟味する傾向。「オプトイン（事前同意）」が文化・制度として定着。',
+                action: '利用するサービスを吟味し、プライバシーポリシーをよく確認する。Cookie設定なども安易に「すべて同意」せず、必要最低限を選択するユーザーが多い。データポータビリティ権など、自己の権利行使にも積極的。'
+            },
+            'high-literacy': {
+                title: '高リテラシー層 (欧州)',
+                interpretation: '「権利とルールを理解し、安全な範囲で活用するもの」。GDPRやAI法案の詳細を理解し、法的に許容される範囲とリスクを正確に把握。その上で、自己の権利を侵害しない形でAIの恩恵を受けようとする。',
+                action: 'プライバシー保護を重視したオープンソースのAIモデルを個人サーバーで動かすなど、高度な自衛策を講じる。企業が提供するサービスに対しては、データ処理方法について積極的に問い合わせ、納得できなければ利用しない。'
+            },
+            'low-literacy': {
+                title: '低リテラシー層 (欧州)',
+                interpretation: '「よくわからないが、ルールで守られているはずのもの」。自分自身が詳細を理解していなくても、GDPRなどの強力な法規制が自分を守ってくれているという信頼感がある。そのため、米国ユーザーより安心してサービスを利用する側面もある。',
+                action: 'サービス利用時に表示される詳細な同意画面に戸惑うこともあるが、基本的な権利は保護されていると信じている。友人やメディアの評判を参考に、信頼できるとされる大手サービスを選ぶ傾向がある。'
             }
         },
         japan: {
             business: {
                 title: 'ビジネス利用 (日本)',
-                interpretation: '「潜在的リスクを伴う未知のテクノロジー」。個人情報の入力は、万が一の情報漏洩時の信用の失墜や法的責任を考えると、原則として避けるべき、という風潮が強い。「使わない」ことが最も安全なリスク管理策と見なされがち。同調圧力により、先進的な企業でも活用表明には慎重になる。',
-                action: '多くの企業が利用を禁止、あるいは用途を極端に制限している。一部の先進企業が、情報システム部門の管理下で、個人情報を含まない範囲での試用を開始。活用している場合でも、その事実を公表しないことが多い。'
+                interpretation: '「信用の失墜に繋がりかねないリスクの塊」。個人情報保護法遵守はもちろん、一度の情報漏洩が企業の存続を揺るがすという「評判リスク」を極度に恐れる。結果、「使わない」ことが最も安全かつ合理的な経営判断とされがち。',
+                action: '多くの企業が利用を原則禁止、あるいは厳格に制限。活用する場合も、個人情報を完全に排除した上での試行錯誤に留まる。情報システム部門の徹底した管理下で、限定的な利用が進むが、全社的な展開には至らないケースが多い。'
             },
             private: {
                 title: 'プライベート利用 (日本)',
-                interpretation: '「面白そうだが、個人情報を入れるのは怖い」。新しい技術への興味はあるものの、「ChatGPTに個人情報を絶対に入力してはいけない」というメディアやSNSでの論調に強く影響される。写真や実名、詳細な個人的な悩みの入力には強い抵抗感を持つ。',
-                action: '一般的な調べ物やアイデア出しには利用するが、個人が特定できる情報の入力は避ける傾向。特に画像生成AIでの写真のアップロードには非常に慎重。'
+                interpretation: '「便利そうだが、個人情報を渡すのは怖い」。技術への興味はあるが、「ChatGPTに個人情報を絶対に入れてはいけない」という社会的な同調圧力やメディアの論調に強く影響される。実名や写真、詳細な悩みの入力には極めて強い抵抗感を持つ。',
+                action: '一般的な調べ物やアイデア出しには利用するが、個人が特定されうる情報の入力は徹底して避ける。友人との会話でも「AIに個人情報を入力するのは危険」という話題が共有されやすい。'
             },
             'high-literacy': {
                 title: '高リテラシー層 (日本)',
-                interpretation: '「リスクを理解し、限定的に活用するツール」。海外の動向や技術仕様を理解しており、安全な使い方（API利用、データ非学習設定など）を知っている。しかし、社会全体の慎重な雰囲気を意識し、公の場での積極的な活用アピールは控える傾向がある。',
-                action: '海外の高リテラシー層と同様に、API連携や安全な設定での活用を試みる。しかし、業務で活用する際は、周囲の理解を得るための説明コストが高い。個人開発やクローズドなコミュニティでの活用が中心。'
+                interpretation: '「リスクを理解し、安全策を講じた上で限定的に活用するツール」。技術仕様やAPIのデータ非学習設定などを理解している。しかし、社会全体の慎重な雰囲気を考慮し、業務での活用には周囲への丁寧な説明が不可欠。',
+                action: '個人開発やクローズドな環境で、API経由など安全な方法で活用。業務で導入する際は、リスクが万が一にも顕在化しないことを証明する責任を負わされがちで、活用の推進に大きなエネルギーを要する。'
             },
             'low-literacy': {
                 title: '低リテラシー層 (日本)',
-                interpretation: '「よくわからないけど、危ないもの」。テレビやネットニュースの「AIの危険性」に関する報道を断片的に受け取り、漠然とした不安感を抱いている。「個人情報を入力すると悪用される」という強い先入観を持つ。',
-                action: '興味本位で少し触ることはあっても、継続的な利用には至らない。あるいは、リスクへの不安から最初から全く利用しない。「自分には関係ないもの」と捉えていることが多い。'
+                interpretation: '「よくわからない、とにかく危険なもの」。テレビやネットニュースで報道されるAIのネガティブな側面（情報漏洩、悪用など）を強く内面化し、漠然とした強い不安感を抱いている。「自分には関係ない」と距離を置く。',
+                action: 'リスクへの不安から、最初から利用しない、あるいはアンインストールする。周囲が使っていても、「危ないからやめたほうがいい」と助言するなど、リスク回避的な行動が目立つ。'
             }
         }
     };
 
-    let currentRegion = 'global';
+    let currentRegion = 'us';
     let currentSegment = 'business';
 
     const analysisContent = document.getElementById('analysis-content');
@@ -371,8 +394,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
     
-    currentRegion = 'global';
-    currentSegment = 'business';
     updateButtons();
     updateContent();
 });
